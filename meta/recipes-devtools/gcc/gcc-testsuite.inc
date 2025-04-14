@@ -1,5 +1,3 @@
-inherit qemu
-
 TOOLCHAIN_TEST_TARGET ??= "user"
 TOOLCHAIN_TEST_HOST ??= "localhost"
 TOOLCHAIN_TEST_HOST_USER ??= "root"
@@ -41,7 +39,7 @@ python check_prepare() {
         content.append('process_multilib_options ""')
 
         # qemu args
-        qemu_binary = qemu_target_binary(d)
+        qemu_binary = oe.qemu.qemu_target_binary(d)
         if not qemu_binary:
             bb.fatal("Missing target qemu linux-user binary")
 

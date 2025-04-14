@@ -1,8 +1,6 @@
 require glibc_${PV}.bb
 require glibc-tests.inc
 
-inherit qemu
-
 SRC_URI += "file://check-test-wrapper"
 
 # strip provides
@@ -22,7 +20,7 @@ do_check:append () {
 
     oe_runmake -i \
         QEMU_SYSROOT="${RECIPE_SYSROOT}" \
-        QEMU_OPTIONS="${@qemu_target_binary(d)} ${QEMU_OPTIONS}" \
+        QEMU_OPTIONS="${@oe.qemu.qemu_target_binary(d)} ${QEMU_OPTIONS}" \
         SSH_HOST="${TOOLCHAIN_TEST_HOST}" \
         SSH_HOST_USER="${TOOLCHAIN_TEST_HOST_USER}" \
         SSH_HOST_PORT="${TOOLCHAIN_TEST_HOST_PORT}" \

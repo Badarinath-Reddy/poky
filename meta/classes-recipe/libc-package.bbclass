@@ -94,8 +94,6 @@ do_collect_bins_from_locale_tree() {
 	cross-localedef-hardlink -c -v ${WORKDIR}/locale-tree
 }
 
-inherit qemu
-
 python package_do_split_gconvs () {
     import re
     if (d.getVar('PACKAGE_NO_GCONV') == '1'):
@@ -284,7 +282,7 @@ python package_do_split_gconvs () {
             cmd = "PATH=\"%s\" I18NPATH=\"%s\" GCONV_PATH=\"%s\" cross-localedef %s" % \
                 (path, i18npath, gconvpath, localedef_opts)
         else: # earlier slower qemu way 
-            qemu = qemu_target_binary(d) 
+            qemu = oe.qemu.qemu_target_binary(d)
             localedef_opts = "--force --no-hard-links --no-archive --prefix=%s \
                 --inputfile=%s/i18n/locales/%s --charmap=%s %s" \
                 % (treedir, datadir, locale, encoding, name)

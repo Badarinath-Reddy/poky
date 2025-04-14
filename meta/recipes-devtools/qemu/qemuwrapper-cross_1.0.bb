@@ -7,14 +7,12 @@ UNPACKDIR = "${S}"
 
 DEPENDS += "qemu-native"
 
-inherit qemu
-
 do_populate_sysroot[depends] = ""
 
 do_install () {
 	install -d ${D}${bindir_crossscripts}/
 
-	qemu_binary=${@qemu_target_binary(d)}
+	qemu_binary=${@oe.qemu.qemu_target_binary(d)}
 	qemu_options='${QEMU_OPTIONS} -E LD_LIBRARY_PATH=$D${libdir}:$D${base_libdir}'
 
 	cat >> ${D}${bindir_crossscripts}/${MLPREFIX}qemuwrapper << EOF
